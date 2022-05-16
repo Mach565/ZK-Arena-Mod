@@ -31,3 +31,17 @@ for _, ud in pairs (UnitDefs) do
         ud.customparams.pylonrange = math.max(ud.customparams.pylonrange, 90)
     end
 end
+
+-- apply unitTweaks
+local unitTweaks = VFS.Include("gamedata/unit_tweaks.lua")
+local OverwriteTableInplace = Spring.Utilities.OverwriteTableInplace
+if unitTweaks and type(unitTweaks) == "table" then
+    Spring.Echo("Loading custom units tweaks for zero-wars")
+    for name, ud in pairs(UnitDefs) do
+        if unitTweaks[name] then
+            Spring.Echo("Loading custom units tweaks for " .. name)
+            OverwriteTableInplace(ud, lowerkeys(unitTweaks[name]), true)
+        end
+    end
+end
+
