@@ -1,8 +1,8 @@
 {
-    "name" : "Arena Mod",
+    "name" : "Arena Mod Bugfix",
     "description" : "Use an HQ building to spawn units and defeat your enemy",
     "roomType" : "Team",
-    "game" : "Arena Mod v1.0.7",
+    "game" : "Arena Mod Bugfix v1.0.0",
     "options" : {
         "terrarestoreonly" : true
     }
