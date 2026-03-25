@@ -20,9 +20,9 @@ local unitDef = {
 
   -- Resources
   metalStorage                  = 100000,
-  energyStorage                 = 100000,
+  energyStorage                 = 10000,
   energyUse                     = 0,
-  energyMake                    = 1000,
+  energyMake                    = 100,
   metalUse                     = 0,
   metalMake                    = 2,
 
@@ -49,9 +49,9 @@ local unitDef = {
   terraformSpeed                = 0,
 
   buildoptions        = {
-    [[staticradar]],
     [[staticcon]],
-    [[staticshield]],
+    [[energysolar]],
+    [[energywind]],
     [[staticrearm]],
     [[turretmissile]],
     [[turretriot]],
@@ -59,7 +59,6 @@ local unitDef = {
     [[turrettorp]],
     [[turretemp]],
     [[turretaaflak]],
-    [[turretaaclose]],
   },
 
   -- Movement & Placement
@@ -85,6 +84,7 @@ local unitDef = {
 
   -- Other
   customParams                  = {
+    pylonrange = 250,
     soundselect = "building_select1",
     isfakefactory = 1,
     notreallyafactory = 1,
