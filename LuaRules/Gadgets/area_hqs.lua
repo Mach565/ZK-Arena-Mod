@@ -278,6 +278,30 @@ function gadget:AllowCommand(unitID, unitDefID, unitTeam, cmdID, cmdParams, cmdO
     return true
 end
 
+function gadget:UnitDestroyed(unitID, unitDefID, teamID, attackerID)
+    if spGetUnitRulesParam(unitID, "isHQ") then
+        for i = 1, 5 do
+            local oldUD = spGetUnitRulesParam(unitID, "HQBuyUnit" .. i)
+            if not (oldUD == -1) then
+                local udTier = spGetUnitRulesParam(unitID, "HQBuyUnitTier" .. i)
+                local udPoolID = spGetUnitRulesParam(unitID, "HQBuyUnitPoolID" .. i)
+                unitPools[udTier][udPoolID] = unitPools[udTier][udPoolID] + 1
+            end
+        end
+        for i = 1, 8 do
+            local udAtI = spGetUnitRulesParam(unitID, "HQSpawnUnit" .. i)
+            if not (udAtI == -1) then
+                local udTier = spGetUnitRulesParam(unitID, "HQSpawnUnitTier" .. i)
+                local udPoolID = spGetUnitRulesParam(unitID, "HQSpawnUnitPoolID" .. i)
+                local count = spGetUnitRulesParam(unitID, "HQSpawnUnitCount" .. i)
+                spSetUnitRulesParam(unitID, "HQSpawnUnit" .. i, -1, LOS_ACCESS)
+                spSetUnitRulesParam(unitID, "HQSpawnUnitCost" .. i, 1, LOS_ACCESS)
+                unitPools[udTier][udPoolID] = unitPools[udTier][udPoolID] + count
+            end
+        end
+    end
+end
+
 function gadget:UnitCommand(unitID, unitDefID, unitTeam, cmdID, cmdParams, cmdOptions, cmdTag)
     if Spring.GetUnitIsDead(unitID) then
         return
