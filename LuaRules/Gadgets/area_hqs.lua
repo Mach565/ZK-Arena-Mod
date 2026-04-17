@@ -248,6 +248,12 @@ local function OnHQSell(HQID, HQTeamID, sellUnitID)
 		local udPoolID = spGetUnitRulesParam(HQID, "HQSpawnUnitPoolID" .. sellUnitID)
 		local count = spGetUnitRulesParam(HQID, "HQSpawnUnitCount" .. sellUnitID)
 		unitPools[udTier][udPoolID] = unitPools[udTier][udPoolID] + count
+		-- somehow extra units keep ending up in the pool, hopefully this fixes it
+		if unitPools[udTier][udPoolID] + count > tierSize[tier] then
+			unitPools[udTier][udPoolID] = tierSize[tier]
+		else
+			unitPools[udTier][udPoolID] = unitPools[udTier][udPoolID] + count
+		end
 	end
 end
 
